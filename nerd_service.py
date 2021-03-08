@@ -16,5 +16,4 @@ def get_personalized_message(user):
   return random.choice(all_user_messages)
 
 def check_gme():
-  print('GME stock check')
   return si.get_live_price("gme")

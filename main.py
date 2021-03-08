@@ -31,19 +31,19 @@ async def on_message(message):
       elif first_command == 'help':
         await message.channel.send(help())
     else:
-      await message.channel.send(about())
+      await message.channel.send(help())
 
   if message.content.startswith('!gme'):
     print(full_command)
     await message.channel.send(gme())
 
-@aiocron.crontab('0 * * ? * *')
+@aiocron.crontab('* * * * *')
 async def gme_alert():
   print('Checking GME stock price alert')
-  channel = discord.utils.get(client.guild.channels, name='general')
+  channel = discord.utils.get(client.get_all_channels(), guild__name='Nerd Herd', name='general')
   gme_price = nerd_service.check_gme()
-  if(gme_price > 250):
-    await channel.send(f'GME price {gme_price}')
+  if(gme_price > 225):
+    await channel.send(f'GME Price Alert: {gme_price}')
 
 def personalized_message(mentions):
   return nerd_service.get_personalized_message(mentions)
