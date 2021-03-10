@@ -16,4 +16,13 @@ def get_personalized_message(user):
   return random.choice(all_user_messages)
 
 def check_gme():
-  return si.get_live_price("gme")
+  stock_value = '{:.2f}'.format(si.get_live_price("gme"))
+  return f':rocket: GME :rocket: -- {stock_value}'
+
+def check_stock(stock):
+  print(stock)
+  try:
+    stock_value = '{:.2f}'.format(si.get_live_price(stock))
+    return f'{stock.upper()} live price (not after hours): {stock_value}'
+  except:
+    return f'{stock.upper()} symbol could not be found'

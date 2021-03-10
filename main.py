@@ -33,6 +33,11 @@ async def on_message(message):
     else:
       await message.channel.send(help())
 
+  if message.content.startswith('!stock'):
+    if len(full_command) == 2:
+      first_command = full_command[1]
+      await message.channel.send(check_stock(first_command))
+
   if message.content.startswith('!gme'):
     print(full_command)
     await message.channel.send(gme())
@@ -52,9 +57,12 @@ def about():
   return "A dedicated Discord bot for Nerd Herd server for everything, anything, and nothing :smile:"
 
 def help():
-  return 'Commands:\n**!nerd about** -- bot description\n**!nerd @mention** -- where @mention is anybody in the server to receive a random customized message.\n**!gme** -- checks current GME stock price'
+  return 'Commands:\n**!nerd about** -- bot description\n**!nerd @mention** -- where @mention is anybody in the server to receive a random customized message.\n**!gme** -- checks if we are heading to the moon\n**!stock symbol** -- checks stock price with the symbol provided\n'
 
 def gme():
   return nerd_service.check_gme()
+
+def check_stock(stock):
+  return nerd_service.check_stock(stock)
 
 client.run(os.getenv('TOKEN'))
